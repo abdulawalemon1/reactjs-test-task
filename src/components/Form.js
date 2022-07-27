@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
+import Table from './Table';
 
 const Form = () => {
+    const [formData, setFormData] = useState([]);
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, resetField, formState: { errors }, handleSubmit } = useForm();
+
+    useEffect(() => {
+        setFormData(formData)
+
+    }, [formData]);
 
     const onSubmit = data => {
-        console.log(data)
+        var newFormData = [...formData, data];
+        setFormData(newFormData);
+        resetField('date');
+        resetField('amount');
+        resetField('paymode');
+        resetField('remark');
+
+
     };
 
     return (
@@ -54,7 +68,7 @@ const Form = () => {
                                 <label class="label">
                                     <span class="label-text">Remark</span>
                                 </label>
-                                <input type="text" placeholder="Enter Remark" class="input input-bordered" />
+                                <input {...register('remark')} type="text" placeholder="Enter Remark" class="input input-bordered" />
                             </div>
                             <div className='flex justify-around'>
                                 <div class="form-control mt-6">
@@ -67,6 +81,35 @@ const Form = () => {
                         </form>
                     </div>
                 </div>
+            </div>
+
+            <div className='flex justify-center overflow-x-auto mt-10 mx-20'>
+                <table className="table w-full">
+                    <thead>
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th> Payment type</th>
+                            <th> Remarks</th>
+                        </tr>
+                    </thead>
+                    {formData && formData?.map((data, index) =>
+
+
+                        <tbody >
+                            <tr>
+                                <td>{index + 1}</td>
+                                <td>{data.date}</td>
+                                <td>{data.amount}</td>
+                                <td>{data.paymode}</td>
+                                <td>{data.remark}</td>
+                            </tr>
+                        </tbody>
+
+
+                    )}
+                </table>
             </div>
         </div>
     );
