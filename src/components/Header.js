@@ -4,8 +4,8 @@ const Header = () => {
     return (
         <div className=''>
 
-            <div class="navbar bg-base-300">
-                <a class="btn btn-ghost normal-case text-xl">Receipt</a>
+            <div className="navbar bg-base-300">
+                <a className="btn btn-ghost normal-case text-xl">Receipt</a>
             </div>
 
         </div>
